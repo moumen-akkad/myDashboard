@@ -1,6 +1,6 @@
 <template>
     <div @click="expanded = !expanded" class="cursor-pointer">
-        <div class="rounded-[24px] p-6 bg-white/20 backdrop-blur-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
+
             <div class="flex items-center justify-between">
                 <h4 class="font-semibold">{{ title }}</h4>
                 <ChevronDown :class="['w-5 h-5 transition-transform duration-300', expanded ? 'rotate-180' : '']"/>
@@ -16,14 +16,7 @@
                 <span class="text-gray-600">Version: {{ version }}</span>
             </div>
         </div>
-        <div class="flex justify-end gap-2 mt-4">
-            <button title="Restart service" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
-                <RefreshCw class="w-5 h-5 text-gray-800" />
-            </button>
-            <button title="View details" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
-                <Info class="w-5 h-5 text-gray-800" />
-            </button>
-            <button title="Configure service" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
+
                 <Settings class="w-5 h-5 text-gray-800" />
             </button>
         </div>

@@ -1,10 +1,10 @@
 <template>
   
-  <div class="h-full w-full bg-gradient-to-br from-white/40 to-blue-100 p-4">
+  <div class="min-h-screen w-full bg-gradient-to-br from-white/40 to-blue-100 p-8">
     <!-- Header block -->
-    <div
-    class="rounded-2xl backdrop-blur bg-white/30 p-6 shadow max-w-xl mx-auto mt-4 text-center"
-    >
+  <div
+  class="rounded-2xl backdrop-blur bg-white/30 p-6 shadow max-w-xl mx-auto mt-4 mb-8 text-center"
+  >
     <h2 class="text-xl font-bold">AAS Dataspace for Everybody</h2>
     <p class="text-sm">Tenant: Tenant 3</p>
     <p class="text-sm">Owner: Fraunhofer IESE</p>
