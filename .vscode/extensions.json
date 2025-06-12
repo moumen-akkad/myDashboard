@@ -1,0 +1,19 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // or "johnsoncodehk.volar"
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // Prettier or Volar
+  },
+  "volar.formatting.enable": true,
+  "vetur.validation.template": false, // Disable if using Volar
+  "editor.formatOnSave": true,
+
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "vetur.useWorkspaceDependencies": true,
+  "vetur.experimental.templateInterpolationService": true,
+  "volar.hybridMode": false,
+  "javascript.validate.enable": false,
+  "typescript.validate.enable": false,
+  "vetur.format.defaultFormatterOptions": {
+    "wrapLineLength": 80
+  }
+}
