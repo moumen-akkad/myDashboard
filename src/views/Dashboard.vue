@@ -1,6 +1,6 @@
 <template>
   
-  <div class="h-full w-full bg-gradient-to-br from-white/40 to-blue-100 p-4">
+  <div class="min-h-screen w-full bg-gradient-to-br from-white/40 to-blue-100 p-8">
     <!-- Header block -->
     <div
     class="max-w-3xl mx-auto rounded-3xl bg-white/40 backdrop-blur-sm p-6 md:p-10 shadow-lg shadow-black/5 text-center mt-4 mb-10"

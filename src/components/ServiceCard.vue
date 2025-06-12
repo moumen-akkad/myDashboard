@@ -25,6 +25,20 @@
                 </button>
             </div>
         </div>
+        
+        <div class="flex justify-between gap-4 mt-6">
+            <button title="Restart service" class="p-2 rounded-lg border border-transparent bg-white/20 backdrop-blur hover:bg-white/30 transition-colors focus:outline-none">
+                <RefreshCw class="w-5 h-5 text-gray-800" />
+            </button>
+            <button title="View details" class="p-2 rounded-lg border border-transparent bg-white/20 backdrop-blur hover:bg-white/30 transition-colors focus:outline-none">
+                <Info class="w-5 h-5 text-gray-800" />
+            </button>
+            <button title="Configure service" class="p-2 rounded-lg border border-transparent bg-white/20 backdrop-blur hover:bg-white/30 transition-colors focus:outline-none">
+                <Settings class="w-5 h-5 text-gray-800" />
+            </button>
+        </div>
+    </div>
+
     <Transition name="expand">
         <div v-if="expanded" class="mt-4">
             <Transition name="fade-slide" mode="out-in">
