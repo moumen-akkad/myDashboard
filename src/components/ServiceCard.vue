@@ -1,22 +1,31 @@
 <template>
     <div @click="expanded = !expanded" class="cursor-pointer">
-        <div class="rounded-2xl p-6 bg-white/60 backdrop-blur-md shadow-lg flex flex-col justify-between min-h-[160px]">
+        <div :class="['rounded-3xl p-6 shadow-lg shadow-black/5 backdrop-blur-sm bg-white/30 flex flex-col h-[160px] transition-colors', backgroundClass]">
             <div class="flex items-center justify-between">
                 <h4 class="font-semibold">{{ title }}</h4>
                 <ChevronDown :class="['w-5 h-5 transition-transform duration-300', expanded ? 'rotate-180' : '']"/>
             </div>
-            <div class="mt-2 flex items-center gap-2 text-xs">
-                <span class="px-2 py-0.5 rounded-full font-medium"
-                    :class="{'bg-green-100 text-green-700': status === 'Online',
-                             'bg-red-100 text-red-700': status === 'Offline',
-                             'bg-yellow-100 text-yellow-700': status === 'Maintenance'}">
-                    {{ status }}
-                </span>
+            <div class="mt-2 flex items-center gap-4 text-xs">
+                <div class="flex items-center gap-2">
+                    <span :class="['w-2.5 h-2.5 rounded-full', statusColor]"></span>
+                    <span class="text-sm font-medium text-gray-800">{{ status }}</span>
+                </div>
                 <span class="text-gray-600">Uptime: {{ uptime }}</span>
                 <span class="text-gray-600">Version: {{ version }}</span>
             </div>
+            <div class="flex justify-evenly items-center mt-auto pt-4">
+                <button title="Restart service" class="w-10 h-10 rounded-full bg-white/40 hover:bg-white/60 shadow-md transition-all flex items-center justify-center">
+                    <RefreshCw class="w-4 h-4 text-gray-700" />
+                </button>
+                <button title="View details" class="w-10 h-10 rounded-full bg-white/40 hover:bg-white/60 shadow-md transition-all flex items-center justify-center">
+                    <Info class="w-4 h-4 text-gray-700" />
+                </button>
+                <button title="Configure service" class="w-10 h-10 rounded-full bg-white/40 hover:bg-white/60 shadow-md transition-all flex items-center justify-center">
+                    <Settings class="w-4 h-4 text-gray-700" />
+                </button>
+            </div>
         </div>
-
+        
         <div class="flex justify-between gap-4 mt-6">
             <button title="Restart service" class="p-2 rounded-lg border border-transparent bg-white/20 backdrop-blur hover:bg-white/30 transition-colors focus:outline-none">
                 <RefreshCw class="w-5 h-5 text-gray-800" />
@@ -29,6 +38,7 @@
             </button>
         </div>
     </div>
+
     <Transition name="expand">
         <div v-if="expanded" class="mt-4">
             <Transition name="fade-slide" mode="out-in">
@@ -70,13 +80,25 @@
     </Transition>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RefreshCw, Info, Settings, ChevronDown } from 'lucide-vue-next'
 import type {Service} from '../config/Service'
 
 const props = defineProps<Service>()
 // destructed props for easier access
-const {title, status, uptime, version} = props 
+const {title, status, uptime, version} = props
+
+const backgroundClass = computed(() => {
+    if (status === 'Online') return 'bg-green-50'
+    if (status === 'Offline') return 'bg-red-50'
+    return 'bg-yellow-50'
+})
+
+const statusColor = computed(() => {
+    if (status === 'Online') return 'bg-green-500'
+    if (status === 'Offline') return 'bg-red-500'
+    return 'bg-yellow-400'
+})
 // State for expand/collapse and face index
 const expanded = ref(false)
 const currentFace = ref(0)
