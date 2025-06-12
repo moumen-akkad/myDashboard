@@ -1,31 +1,29 @@
 <template>
     <div @click="expanded = !expanded" class="cursor-pointer">
-        <div class="rounded-[24px] p-6 bg-white/20 backdrop-blur-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
-            ABC
+        <div class="rounded-2xl p-6 bg-white/60 backdrop-blur-md shadow-lg flex flex-col justify-between min-h-[160px]">
             <div class="flex items-center justify-between">
                 <h4 class="font-semibold">{{ title }}</h4>
                 <ChevronDown :class="['w-5 h-5 transition-transform duration-300', expanded ? 'rotate-180' : '']"/>
             </div>
-            <div>
-                <span :class="{'bg-green-100 text-green-700': status ==='Online','bg-red-100 text-red-700': status ==='Offline','bg-yellow-100 text-yellow-700': status === 'Maintenance'}">
+            <div class="mt-2 flex items-center gap-2 text-xs">
+                <span class="px-2 py-0.5 rounded-full font-medium"
+                    :class="{'bg-green-100 text-green-700': status === 'Online',
+                             'bg-red-100 text-red-700': status === 'Offline',
+                             'bg-yellow-100 text-yellow-700': status === 'Maintenance'}">
                     {{ status }}
                 </span>
-            </div>
-            <div>
-                <h4>{{ uptime }}</h4>
-            </div>
-            <div>
-                <h4>{{ version }}</h4>
+                <span class="text-gray-600">Uptime: {{ uptime }}</span>
+                <span class="text-gray-600">Version: {{ version }}</span>
             </div>
         </div>
-        <div class="flex justify-end gap-2 mt-4">
-            <button title="Restart service" class="text-lg hover:scale-110 transition">
+        <div class="flex justify-between gap-4 mt-6">
+            <button title="Restart service" class="p-2 rounded-lg border border-transparent bg-white/20 backdrop-blur hover:bg-white/30 transition-colors focus:outline-none">
                 <RefreshCw class="w-5 h-5 text-gray-800" />
             </button>
-            <button title="View details" class="text-lg hover:scale-110 transition">
+            <button title="View details" class="p-2 rounded-lg border border-transparent bg-white/20 backdrop-blur hover:bg-white/30 transition-colors focus:outline-none">
                 <Info class="w-5 h-5 text-gray-800" />
             </button>
-            <button title="Configure service" class="text-lg hover:scale-110 transition">
+            <button title="Configure service" class="p-2 rounded-lg border border-transparent bg-white/20 backdrop-blur hover:bg-white/30 transition-colors focus:outline-none">
                 <Settings class="w-5 h-5 text-gray-800" />
             </button>
         </div>
@@ -35,21 +33,21 @@
             <Transition name="fade-slide" mode="out-in">
                 <div :key="currentFace" class="mt-4 text-sm text-gray-700">
                     <!-- face #1 -->
-                    <template v-if="faces[currentFace] === 'overview'">
-                        <p>Statux: {{ status }}</p>
+                    <template v-if="faces[currentFace].id === 'overview'">
+                        <p>Status: {{ status }}</p>
                         <p>Uptime: {{ uptime }}</p>
                         <p>Version: {{ version }}</p>
                     </template>
                     <!-- face #2 -->
-                    <template v-else-if="faces[currentFace] === 'actions'">
+                    <template v-else-if="faces[currentFace].id === 'actions'">
                         <div class="flex justify-center gap-4">
                             <button title="Restart"><RefreshCw class="w-5 h-5"/></button>
                             <button title="Details"><Info class="w-5 h-5"/></button>
-                            <button title="Setting"><Settings class="w-5 h-5"/></button>
+                            <button title="Settings"><Settings class="w-5 h-5"/></button>
                         </div>
                     </template>
                     <!-- face #3 -->
-                    <template v-else-if="faces[currentFace] === 'metrics'">
+                    <template v-else-if="faces[currentFace].id === 'metrics'">
                         <p>CPU Usage: 34%</p>
                         <p>Memory: 512 MB</p>
                         <p>Network I/O: 120 KB/s</p>
@@ -59,9 +57,11 @@
             <Transition :name="direction === 'right' ? 'slide-right' : 'slide-left'" mode="out-in">
                 <div :key="currentFace" class="text-sm text-gray-700">
                     <div class="flex justify-between items-center mt-4">
-                        <button @click.stop="prevFace()" :disabled="currentFace === 0">←</button>
-                        <span class="text-sm">Page {{ currentFace + 1 }} / {{ faces.length }}</span>
-                        <button @click.stop="nextFace()" :disabled="currentFace === faces.length -1" class="text-gray-500 hover:text-black disabled:opacity-30">→</button>
+                        <button @click.stop="prevFace()" :disabled="currentFace === 0" class="px-2 py-1 rounded-md hover:bg-white/30 disabled:opacity-30">←</button>
+                        <div class="flex gap-1">
+                            <span v-for="(face, idx) in faces" :key="idx" class="w-2 h-2 rounded-full" :class="idx === currentFace ? 'bg-gray-800' : 'bg-gray-400/50'"></span>
+                        </div>
+                        <button @click.stop="nextFace()" :disabled="currentFace === faces.length -1" class="px-2 py-1 rounded-md hover:bg-white/30 disabled:opacity-30">→</button>
                     </div>
                 </div>
             </Transition>
