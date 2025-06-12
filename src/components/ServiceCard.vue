@@ -1,6 +1,6 @@
 <template>
     <div @click="expanded = !expanded" class="cursor-pointer">
-        <div class="rounded-[24px] p-6 bg-white/20 backdrop-blur-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
+        <div :class="['rounded-[20px] p-4 shadow-md backdrop-blur-lg flex flex-col h-[150px] transition-colors', backgroundClass]">
             <div class="flex items-center justify-between">
                 <h4 class="font-semibold">{{ title }}</h4>
                 <ChevronDown :class="['w-5 h-5 transition-transform duration-300', expanded ? 'rotate-180' : '']"/>
@@ -15,19 +15,18 @@
                 <span class="text-gray-600">Uptime: {{ uptime }}</span>
                 <span class="text-gray-600">Version: {{ version }}</span>
             </div>
+            <div class="flex justify-between mt-auto pt-4">
+                <button title="Restart service" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
+                    <RefreshCw class="w-5 h-5 text-gray-800" />
+                </button>
+                <button title="View details" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
+                    <Info class="w-5 h-5 text-gray-800" />
+                </button>
+                <button title="Configure service" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
+                    <Settings class="w-5 h-5 text-gray-800" />
+                </button>
+            </div>
         </div>
-        <div class="flex justify-end gap-2 mt-4">
-            <button title="Restart service" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
-                <RefreshCw class="w-5 h-5 text-gray-800" />
-            </button>
-            <button title="View details" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
-                <Info class="w-5 h-5 text-gray-800" />
-            </button>
-            <button title="Configure service" class="p-2 rounded-md bg-white/20 backdrop-blur hover:bg-white/30 transition">
-                <Settings class="w-5 h-5 text-gray-800" />
-            </button>
-        </div>
-    </div>
     <Transition name="expand">
         <div v-if="expanded" class="mt-4">
             <Transition name="fade-slide" mode="out-in">
@@ -69,13 +68,19 @@
     </Transition>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RefreshCw, Info, Settings, ChevronDown } from 'lucide-vue-next'
 import type {Service} from '../config/Service'
 
 const props = defineProps<Service>()
 // destructed props for easier access
-const {title, status, uptime, version} = props 
+const {title, status, uptime, version} = props
+
+const backgroundClass = computed(() => {
+    if (status === 'Online') return 'bg-green-50'
+    if (status === 'Offline') return 'bg-red-50'
+    return 'bg-yellow-50'
+})
 // State for expand/collapse and face index
 const expanded = ref(false)
 const currentFace = ref(0)

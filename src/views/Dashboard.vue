@@ -3,7 +3,7 @@
   <div class="h-full w-full bg-gradient-to-br from-white/40 to-blue-100 p-4">
     <!-- Header block -->
     <div
-    class="rounded-2xl backdrop-blur bg-white/30 p-6 shadow max-w-xl mx-auto mt-4 text-center"
+    class="rounded-[20px] backdrop-blur bg-white/30 p-6 shadow max-w-xl mx-auto mt-4 mb-6 text-center"
     >
     <h2 class="text-xl font-bold">AAS Dataspace for Everybody</h2>
     <p class="text-sm">Tenant: Tenant 3</p>
@@ -16,7 +16,7 @@
   -->
 
   <!-- Card grid -->
-    <div class="grid grid-cols-3 gap-6 mt-8 w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-8 w-full">
       <ServiceCard
         v-for="(service, i) in services"
         :key="i"
