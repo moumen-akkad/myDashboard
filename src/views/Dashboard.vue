@@ -20,7 +20,7 @@
       <ServiceCard
         v-for="(service, i) in services"
         :key="i"
-        :service="service"/>
+        v-bind="service"/>
     </div>
   </div>
 </template>
