@@ -1,5 +1,3 @@
-import { services } from '@/config/services.config'
-
 export interface Service {
     title: string
     status: 'Online' | 'Offline' | 'Maintenance'
